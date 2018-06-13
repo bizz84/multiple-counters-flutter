@@ -9,7 +9,7 @@ Supported tasks:
 - Show a list of counters
 - Add new counters
 - Increment or decrement existing counters
-- Remove counters (with a swipe left to dismiss gesture)
+- Remove counters (swipe left to dismiss)
 
 ### Preview
 
@@ -29,6 +29,10 @@ The same functionality is replicated in four different pages accessible via the 
 * [`StreamBuilder`](https://docs.flutter.io/flutter/widgets/StreamBuilder-class.html)
 * [`scoped_model`](https://pub.dartlang.org/packages/scoped_model)
 * [`redux`](https://pub.dartlang.org/packages/redux)
+
+Watch my video for a full overview of the differences and tradeoffs between these techniques.
+
+### TODO: YouTube video
 
 
 ### For more articles and video tutorials, check out [Coding With Flutter](https://codingwithflutter.com/).
