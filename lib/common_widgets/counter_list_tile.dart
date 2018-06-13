@@ -19,11 +19,11 @@ class CounterListTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           '${counter.value}',
-          style: TextStyle(fontSize: 32.0),
+          style: TextStyle(fontSize: 48.0),
         ),
         subtitle: Text(
           '${counter.key}',
-          style: TextStyle(fontSize: 12.0),
+          style: TextStyle(fontSize: 16.0),
         ),
         trailing: Row(
           children: <Widget>[
@@ -50,10 +50,11 @@ class CounterActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      radius: 28.0,
       backgroundColor: Theme.of(context).primaryColor,
       child: IconButton(
-        icon: Icon(iconData),
-        color: Colors.white,
+        icon: Icon(iconData, size: 28.0),
+        color: Colors.black,
         onPressed: onPressed,
       ),
     );
