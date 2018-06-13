@@ -68,7 +68,7 @@ class SetStatePageState extends State<SetStatePage> {
           itemBuilder: (context, items, index) {
             Counter counter = items[index];
             return CounterListTile(
-              key: Key('counter-$index'),
+              key: Key('state-$index'),
               counter: counter,
               onDecrement: _decrement,
               onIncrement: _increment,

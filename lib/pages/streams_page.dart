@@ -32,7 +32,7 @@ class StreamsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('setState'),
+        title: Text('Streams'),
         elevation: 1.0,
       ),
       body: Container(
@@ -54,7 +54,7 @@ class StreamsPage extends StatelessWidget {
           itemBuilder: (context, items, index) {
             Counter counter = items[index];
             return CounterListTile(
-              key: Key('counter-$index'),
+              key: Key('streams-$index'),
               counter: counter,
               onDecrement: _decrement,
               onIncrement: _increment,

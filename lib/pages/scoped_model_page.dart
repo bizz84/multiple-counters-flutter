@@ -45,7 +45,7 @@ class ScopedModelPage extends StatelessWidget {
         builder: (context, child, model) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('setState'),
+          title: Text('Scoped model'),
           elevation: 1.0,
         ),
         body: Container(
@@ -54,7 +54,7 @@ class ScopedModelPage extends StatelessWidget {
             itemBuilder: (context, items, index) {
               Counter counter = items[index];
               return CounterListTile(
-                key: Key('counter-$index'),
+                key: Key('scoped-$index'),
                 counter: counter,
                 onDecrement: model.decrement,
                 onIncrement: model.increment,
