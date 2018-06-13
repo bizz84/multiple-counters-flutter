@@ -54,7 +54,7 @@ class StreamsPage extends StatelessWidget {
           itemBuilder: (context, items, index) {
             Counter counter = items[index];
             return CounterListTile(
-              key: Key('streams-$index'),
+              key: Key('counter-${counter.key}'),
               counter: counter,
               onDecrement: _decrement,
               onIncrement: _increment,

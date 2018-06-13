@@ -54,7 +54,7 @@ class ScopedModelPage extends StatelessWidget {
             itemBuilder: (context, items, index) {
               Counter counter = items[index];
               return CounterListTile(
-                key: Key('scoped-$index'),
+                key: Key('counter-${counter.key}'),
                 counter: counter,
                 onDecrement: model.decrement,
                 onIncrement: model.increment,
