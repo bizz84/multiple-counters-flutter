@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
-import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
+import 'package:multiple_counters_flutter/common_widgets/item_widget_builder.dart';
 import 'package:multiple_counters_flutter/database.dart';
 
 class StreamsPage extends StatelessWidget {
