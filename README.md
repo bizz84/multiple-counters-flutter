@@ -1,4 +1,4 @@
-## Flutter State Management - Four Ways
+## Flutter State Management
 
 This is a sample app showing four different approaches to managing state in Flutter:
 
@@ -6,16 +6,14 @@ This is a sample app showing four different approaches to managing state in Flut
 
 **Use case: manage multiple counters, synced with Firebase Database.**
 
+[![](screenshots/poster-state-management.png)]()
+
 Supported tasks:
 
 - Show a list of counters
 - Add new counters
 - Increment or decrement existing counters
 - Remove counters (swipe left to dismiss)
-
-### Preview
-
-![](screenshots/multiple_counters_tabs.png)
 
 ## Firebase Database
 
