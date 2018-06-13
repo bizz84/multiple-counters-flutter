@@ -1,8 +1,10 @@
 ## Flutter State Management - Four Ways
 
-This is a sample app showing four different approaches to managing state in Flutter.
+This is a sample app showing four different approaches to managing state in Flutter:
 
-This project is an extension of the default Flutter counter app.
+### [`setState`](https://docs.flutter.io/flutter/widgets/State/setState.html) vs [`StreamBuilder`](https://docs.flutter.io/flutter/widgets/StreamBuilder-class.html) vs [`scoped_model`](https://pub.dartlang.org/packages/scoped_model) vs [`redux`](https://pub.dartlang.org/packages/redux)
+
+**Use case: manage multiple counters, synced with Firebase Database.**
 
 Supported tasks:
 
