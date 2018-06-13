@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:multiple_counters_flutter/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/database.dart';
+import 'package:multiple_counters_flutter/snapshot_list_builder.dart';
 
 class StreamsPage extends StatelessWidget {
+  StreamsPage({this.database, this.subscription});
+  final Database database;
+  final NodeSubscription<List<Counter>> subscription;
+
+  void _createCounter(BuildContext context) async {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    Counter counter = Counter(key: '$now', value: 0);
+    await database.setCounter(counter);
+  }
+
+  void _increment(Counter counter) async {
+    counter.value++;
+    await database.setCounter(counter);
+  }
+
+  void _decrement(Counter counter) async {
+    counter.value--;
+    await database.setCounter(counter);
+  }
+
+  void _delete(Counter counter) async {
+    await database.deleteCounter(counter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,11 +35,35 @@ class StreamsPage extends StatelessWidget {
         title: Text('setState'),
         elevation: 1.0,
       ),
-      body: _buildBody(),
+      body: Container(
+        child: _buildContent(context),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _createCounter(context),
+      ),
     );
   }
 
-  Widget _buildBody() {
-    return Container();
+  Widget _buildContent(BuildContext context) {
+    return StreamBuilder<List<Counter>>(
+      stream: subscription.stream,
+      builder: (context, snapshot) {
+        return SnapshotListBuilder(
+          snapshot: snapshot,
+          itemBuilder: (context, items, index) {
+            Counter counter = items[index];
+            return CounterListTile(
+              key: Key('counter-$index'),
+              counter: counter,
+              onDecrement: _decrement,
+              onIncrement: _increment,
+              onDismissed: _delete,
+            );
+          },
+        );
+      },
+    );
   }
 }
+

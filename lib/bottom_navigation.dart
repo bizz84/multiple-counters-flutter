@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multiple_counters_flutter/database.dart';
 import 'package:multiple_counters_flutter/set_state_page.dart';
 import 'package:multiple_counters_flutter/streams_page.dart';
 
@@ -53,9 +54,15 @@ class BottomNavigationState extends State<BottomNavigation> {
   Widget _buildBody() {
     switch (currentItem) {
       case TabItem.setState:
-        return SetStatePage();
+        return SetStatePage(
+          database: AppDatabase(),
+          subscription: AppDatabase.countersStream(),
+        );
       case TabItem.streams:
-        return StreamsPage();
+        return StreamsPage(
+          database: AppDatabase(),
+          subscription: AppDatabase.countersStream(),
+        );
     }
     return Container();
   }
@@ -88,6 +95,6 @@ class BottomNavigationState extends State<BottomNavigation> {
   }
 
   Color _colorTabMatching({TabItem item}) {
-    return currentItem == item ? Colors.orange : Colors.grey;
+    return currentItem == item ? Theme.of(context).primaryColor : Colors.grey;
   }
 }
