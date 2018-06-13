@@ -18,7 +18,9 @@ class CountersParser implements NodeParser<List<Counter>> {
     Map<dynamic, dynamic> values = event.snapshot.value;
     if (values != null) {
       Iterable<String> keys = values.keys.cast<String>();
-      return keys.map((key) => Counter(key: key, value: values[key])).toList();
+      var counters = keys.map((key) => Counter(key: key, value: values[key])).toList();
+      counters.sort((lhs, rhs) => rhs.key.compareTo(lhs.key));
+      return counters;
     } else {
       return [];
     }
