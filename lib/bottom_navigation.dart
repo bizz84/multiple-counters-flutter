@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:multiple_counters_flutter/database.dart';
+import 'package:multiple_counters_flutter/pages/redux_page.dart';
 import 'package:multiple_counters_flutter/pages/scoped_model_page.dart';
 import 'package:multiple_counters_flutter/pages/set_state_page.dart';
 import 'package:multiple_counters_flutter/pages/streams_page.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 enum TabItem {
   setState,
   scoped,
   streams,
+  redux,
 }
 
 String tabItemName(TabItem tabItem) {
@@ -19,6 +23,8 @@ String tabItemName(TabItem tabItem) {
       return "scoped";
     case TabItem.streams:
       return "streams";
+    case TabItem.redux:
+      return "redux";
   }
   return null;
 }
@@ -41,6 +47,9 @@ class BottomNavigationState extends State<BottomNavigation> {
         break;
       case 2:
         _updateCurrentItem(TabItem.streams);
+        break;
+      case 3:
+        _updateCurrentItem(TabItem.redux);
         break;
     }
   }
@@ -79,6 +88,21 @@ class BottomNavigationState extends State<BottomNavigation> {
           database: AppDatabase(),
           subscription: AppDatabase.countersStream(),
         );
+      case TabItem.redux:
+        final middleware = CountersMiddleWare(
+          database: AppDatabase(),
+          subscription: AppDatabase.countersStream(),
+        );
+        final store = Store<ReduxModel>(
+          reducer,
+          initialState: ReduxModel(counters: null),
+          middleware: [ middleware ],
+        );
+        middleware.listen(store);
+        return StoreProvider(
+          store: store,
+          child: ReduxPage(),
+        );
     }
     return Container();
   }
@@ -90,6 +114,7 @@ class BottomNavigationState extends State<BottomNavigation> {
         _buildItem(icon: Icons.adjust, tabItem: TabItem.setState),
         _buildItem(icon: Icons.arrow_downward, tabItem: TabItem.scoped),
         _buildItem(icon: Icons.clear_all, tabItem: TabItem.streams),
+        _buildItem(icon: Icons.settings_input_component, tabItem: TabItem.redux),
       ],
       onTap: _onSelectTab,
     );
