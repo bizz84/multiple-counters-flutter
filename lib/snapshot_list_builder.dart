@@ -20,10 +20,7 @@ class SnapshotListBuilder<T> extends StatelessWidget {
       if (items.length > 0) {
         return _buildList(items);
       } else {
-        return PlaceholderContent(
-          title: 'Nothing Here',
-          message: 'Add a new item to get started.',
-        );
+        return PlaceholderContent();
       }
     } else {
       return Center(child: CircularProgressIndicator());

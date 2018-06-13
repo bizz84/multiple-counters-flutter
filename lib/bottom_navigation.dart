@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/database.dart';
+import 'package:multiple_counters_flutter/scoped_model_page.dart';
 import 'package:multiple_counters_flutter/set_state_page.dart';
 import 'package:multiple_counters_flutter/streams_page.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 enum TabItem {
   setState,
+  scoped,
   streams,
 }
 
@@ -12,6 +15,8 @@ String tabItemName(TabItem tabItem) {
   switch (tabItem) {
     case TabItem.setState:
       return "setState";
+    case TabItem.scoped:
+      return "scoped";
     case TabItem.streams:
       return "streams";
   }
@@ -32,6 +37,9 @@ class BottomNavigationState extends State<BottomNavigation> {
         _updateCurrentItem(TabItem.setState);
         break;
       case 1:
+        _updateCurrentItem(TabItem.scoped);
+        break;
+      case 2:
         _updateCurrentItem(TabItem.streams);
         break;
     }
@@ -58,6 +66,14 @@ class BottomNavigationState extends State<BottomNavigation> {
           database: AppDatabase(),
           subscription: AppDatabase.countersStream(),
         );
+      case TabItem.scoped:
+        return ScopedModel<CountersModel>(
+          model: CountersModel(
+            database: AppDatabase(),
+            subscription: AppDatabase.countersStream(),
+          ),
+          child: ScopedModelPage(),
+        );
       case TabItem.streams:
         return StreamsPage(
           database: AppDatabase(),
@@ -72,6 +88,7 @@ class BottomNavigationState extends State<BottomNavigation> {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(icon: Icons.adjust, tabItem: TabItem.setState),
+        _buildItem(icon: Icons.adjust, tabItem: TabItem.scoped),
         _buildItem(icon: Icons.clear_all, tabItem: TabItem.streams),
       ],
       onTap: _onSelectTab,

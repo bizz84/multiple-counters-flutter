@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PlaceholderContent extends StatelessWidget {
-  PlaceholderContent({this.title, this.message});
+  PlaceholderContent({
+    this.title: 'Nothing Here',
+    this.message: 'Add a new item to get started.',
+  });
   final String title;
   final String message;
 
@@ -11,10 +14,13 @@ class PlaceholderContent extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
-              Text(title, style: TextStyle(fontSize: 32.0, color: Colors.black54), textAlign: TextAlign.center),
-              Text(message, style: TextStyle(fontSize: 16.0, color: Colors.black54), textAlign: TextAlign.center),
-            ])
-    );
+            children: [
+          Text(title,
+              style: TextStyle(fontSize: 32.0, color: Colors.black54),
+              textAlign: TextAlign.center),
+          Text(message,
+              style: TextStyle(fontSize: 16.0, color: Colors.black54),
+              textAlign: TextAlign.center),
+        ]));
   }
 }

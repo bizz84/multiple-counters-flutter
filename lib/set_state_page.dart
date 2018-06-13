@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/counters_list_view.dart';
 import 'package:multiple_counters_flutter/database.dart';
-import 'package:multiple_counters_flutter/placeholder_content.dart';
 
 class SetStatePage extends StatefulWidget {
   SetStatePage({this.database, this.subscription});
@@ -75,45 +74,5 @@ class SetStatePageState extends State<SetStatePage> {
         onPressed: () => _createCounter(context),
       ),
     );
-  }
-}
-
-class CountersListView extends StatelessWidget {
-  CountersListView(
-      {this.counters, this.onDecrement, this.onIncrement, this.onDismissed});
-  final List<Counter> counters;
-  final ValueChanged<Counter> onDecrement;
-  final ValueChanged<Counter> onIncrement;
-  final ValueChanged<Counter> onDismissed;
-
-  @override
-  Widget build(BuildContext context) {
-    if (counters != null) {
-      if (counters.length > 0) {
-        return _buildList();
-      } else {
-        return PlaceholderContent(
-          title: 'Nothing Here',
-          message: 'Add a new item to get started.',
-        );
-      }
-    } else {
-      return Center(child: CircularProgressIndicator());
-    }
-  }
-
-  Widget _buildList() {
-    return ListView.builder(
-        itemCount: counters.length,
-        itemBuilder: (context, index) {
-          Counter counter = counters[index];
-          return CounterListTile(
-            key: Key('counter-$index'),
-            counter: counter,
-            onDecrement: onDecrement,
-            onIncrement: onIncrement,
-            onDismissed: onDismissed,
-          );
-        });
   }
 }
