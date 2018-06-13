@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/counters_list_view.dart';
+import 'package:multiple_counters_flutter/common_widgets/counters_list_view.dart';
 import 'package:multiple_counters_flutter/database.dart';
 import 'package:scoped_model/scoped_model.dart';
 

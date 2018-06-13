@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/database.dart';
-import 'package:multiple_counters_flutter/scoped_model_page.dart';
-import 'package:multiple_counters_flutter/set_state_page.dart';
-import 'package:multiple_counters_flutter/streams_page.dart';
+import 'package:multiple_counters_flutter/pages/scoped_model_page.dart';
+import 'package:multiple_counters_flutter/pages/set_state_page.dart';
+import 'package:multiple_counters_flutter/pages/streams_page.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 enum TabItem {

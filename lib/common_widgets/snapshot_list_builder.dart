@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/placeholder_content.dart';
+import 'package:multiple_counters_flutter/common_widgets/placeholder_content.dart';
 
 typedef Widget SnapshotListItemBuilder<T>(BuildContext context, List<T> items, int index);
 

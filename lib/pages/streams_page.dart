@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
 import 'package:multiple_counters_flutter/database.dart';
-import 'package:multiple_counters_flutter/snapshot_list_builder.dart';
+import 'package:multiple_counters_flutter/common_widgets/snapshot_list_builder.dart';
 
 class StreamsPage extends StatelessWidget {
   StreamsPage({this.database, this.subscription});

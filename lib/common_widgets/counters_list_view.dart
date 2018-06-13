@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
 import 'package:multiple_counters_flutter/database.dart';
-import 'package:multiple_counters_flutter/placeholder_content.dart';
+import 'package:multiple_counters_flutter/common_widgets/placeholder_content.dart';
 
 class CountersListView extends StatelessWidget {
   CountersListView(
