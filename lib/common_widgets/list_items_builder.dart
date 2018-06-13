@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/common_widgets/placeholder_content.dart';
 
-typedef Widget ListItemBuilder<T>(BuildContext context, List<T> items, int index);
+typedef Widget ItemWidgetBuilder<T>(BuildContext context, T item);
 
 class ListItemsBuilder<T> extends StatelessWidget {
   ListItemsBuilder({this.items, this.itemBuilder});
   final List<T> items;
-  final ListItemBuilder<T> itemBuilder;
+  final ItemWidgetBuilder<T> itemBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          return itemBuilder(context, items, index);
+          return itemBuilder(context, items[index]);
         });
   }
 }

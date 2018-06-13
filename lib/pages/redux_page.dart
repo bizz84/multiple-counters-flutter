@@ -125,8 +125,7 @@ class ReduxPage extends StatelessWidget {
           ReduxModel model = store.state;
           return ListItemsBuilder<Counter>(
             items: model.counters,
-            itemBuilder: (context, items, index) {
-              Counter counter = items[index];
+            itemBuilder: (context, counter) {
               return CounterListTile(
                 key: Key('counter-${counter.key}'),
                 counter: counter,

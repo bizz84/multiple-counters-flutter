@@ -73,8 +73,7 @@ class SetStatePageState extends State<SetStatePage> {
   Widget _buildContent() {
     return ListItemsBuilder<Counter>(
       items: _counters,
-      itemBuilder: (context, items, index) {
-        Counter counter = items[index];
+      itemBuilder: (context, counter) {
         return CounterListTile(
           key: Key('counter-${counter.key}'),
           counter: counter,

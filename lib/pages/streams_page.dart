@@ -51,8 +51,7 @@ class StreamsPage extends StatelessWidget {
       builder: (context, snapshot) {
         return ListItemsBuilder<Counter>(
           items: snapshot.hasData ? snapshot.data : null,
-          itemBuilder: (context, items, index) {
-            Counter counter = items[index];
+          itemBuilder: (context, counter) {
             return CounterListTile(
               key: Key('counter-${counter.key}'),
               counter: counter,
