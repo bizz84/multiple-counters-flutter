@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
 import 'package:multiple_counters_flutter/database.dart';
-import 'package:multiple_counters_flutter/common_widgets/snapshot_list_builder.dart';
 
 class StreamsPage extends StatelessWidget {
   StreamsPage({this.database, this.subscription});
@@ -49,8 +49,8 @@ class StreamsPage extends StatelessWidget {
     return StreamBuilder<List<Counter>>(
       stream: subscription.stream,
       builder: (context, snapshot) {
-        return SnapshotListBuilder(
-          snapshot: snapshot,
+        return ListItemsBuilder<Counter>(
+          items: snapshot.hasData ? snapshot.data : null,
           itemBuilder: (context, items, index) {
             Counter counter = items[index];
             return CounterListTile(

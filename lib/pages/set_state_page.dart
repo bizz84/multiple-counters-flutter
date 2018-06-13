@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/common_widgets/counters_list_view.dart';
+import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
 import 'package:multiple_counters_flutter/database.dart';
 
 class SetStatePage extends StatefulWidget {
@@ -62,11 +63,18 @@ class SetStatePageState extends State<SetStatePage> {
         elevation: 1.0,
       ),
       body: Container(
-        child: CountersListView(
-          counters: _counters,
-          onDecrement: _decrement,
-          onIncrement: _increment,
-          onDismissed: _delete,
+        child: ListItemsBuilder<Counter>(
+          items: _counters,
+          itemBuilder: (context, items, index) {
+            Counter counter = items[index];
+            return CounterListTile(
+              key: Key('counter-$index'),
+              counter: counter,
+              onDecrement: _decrement,
+              onIncrement: _increment,
+              onDismissed: _delete,
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(

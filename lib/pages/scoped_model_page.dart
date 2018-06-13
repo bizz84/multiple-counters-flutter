@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multiple_counters_flutter/common_widgets/counters_list_view.dart';
+import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
+import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
 import 'package:multiple_counters_flutter/database.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -48,11 +49,18 @@ class ScopedModelPage extends StatelessWidget {
           elevation: 1.0,
         ),
         body: Container(
-          child: CountersListView(
-            counters: model.counters,
-            onDecrement: model.decrement,
-            onIncrement: model.increment,
-            onDismissed: model.delete,
+          child: ListItemsBuilder<Counter>(
+            items: model.counters,
+            itemBuilder: (context, items, index) {
+              Counter counter = items[index];
+              return CounterListTile(
+                key: Key('counter-$index'),
+                counter: counter,
+                onDecrement: model.decrement,
+                onIncrement: model.increment,
+                onDismissed: model.delete,
+              );
+            },
           ),
         ),
         floatingActionButton: FloatingActionButton(
