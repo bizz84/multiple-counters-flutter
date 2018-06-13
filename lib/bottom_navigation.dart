@@ -88,7 +88,7 @@ class BottomNavigationState extends State<BottomNavigation> {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(icon: Icons.adjust, tabItem: TabItem.setState),
-        _buildItem(icon: Icons.adjust, tabItem: TabItem.scoped),
+        _buildItem(icon: Icons.arrow_downward, tabItem: TabItem.scoped),
         _buildItem(icon: Icons.clear_all, tabItem: TabItem.streams),
       ],
       onTap: _onSelectTab,
