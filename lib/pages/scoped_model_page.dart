@@ -48,26 +48,28 @@ class ScopedModelPage extends StatelessWidget {
           title: Text('Scoped model'),
           elevation: 1.0,
         ),
-        body: Container(
-          child: ListItemsBuilder<Counter>(
-            items: model.counters,
-            itemBuilder: (context, items, index) {
-              Counter counter = items[index];
-              return CounterListTile(
-                key: Key('counter-${counter.key}'),
-                counter: counter,
-                onDecrement: model.decrement,
-                onIncrement: model.increment,
-                onDismissed: model.delete,
-              );
-            },
-          ),
-        ),
+        body: _buildContent(model),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: model.createCounter,
         ),
       );
     });
+  }
+
+  Widget _buildContent(CountersModel model) {
+    return ListItemsBuilder<Counter>(
+      items: model.counters,
+      itemBuilder: (context, items, index) {
+        Counter counter = items[index];
+        return CounterListTile(
+          key: Key('counter-${counter.key}'),
+          counter: counter,
+          onDecrement: model.decrement,
+          onIncrement: model.increment,
+          onDismissed: model.delete,
+        );
+      },
+    );
   }
 }

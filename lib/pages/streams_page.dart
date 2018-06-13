@@ -8,7 +8,7 @@ class StreamsPage extends StatelessWidget {
   final Database database;
   final NodeSubscription<List<Counter>> subscription;
 
-  void _createCounter(BuildContext context) async {
+  void _createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
     Counter counter = Counter(key: '$now', value: 0);
     await database.setCounter(counter);
@@ -36,16 +36,16 @@ class StreamsPage extends StatelessWidget {
         elevation: 1.0,
       ),
       body: Container(
-        child: _buildContent(context),
+        child: _buildContent(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _createCounter(context),
+        onPressed: _createCounter,
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent() {
     return StreamBuilder<List<Counter>>(
       stream: subscription.stream,
       builder: (context, snapshot) {

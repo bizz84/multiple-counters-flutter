@@ -35,7 +35,7 @@ class SetStatePageState extends State<SetStatePage> {
     _subscription.cancel();
   }
 
-  void _createCounter(BuildContext context) async {
+  void _createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
     Counter counter = Counter(key: '$now', value: 0);
     await widget.database.setCounter(counter);
@@ -62,25 +62,27 @@ class SetStatePageState extends State<SetStatePage> {
         title: Text('setState'),
         elevation: 1.0,
       ),
-      body: Container(
-        child: ListItemsBuilder<Counter>(
-          items: _counters,
-          itemBuilder: (context, items, index) {
-            Counter counter = items[index];
-            return CounterListTile(
-              key: Key('counter-${counter.key}'),
-              counter: counter,
-              onDecrement: _decrement,
-              onIncrement: _increment,
-              onDismissed: _delete,
-            );
-          },
-        ),
-      ),
+      body: _buildContent(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _createCounter(context),
+        onPressed: _createCounter,
       ),
+    );
+  }
+
+  Widget _buildContent() {
+    return ListItemsBuilder<Counter>(
+      items: _counters,
+      itemBuilder: (context, items, index) {
+        Counter counter = items[index];
+        return CounterListTile(
+          key: Key('counter-${counter.key}'),
+          counter: counter,
+          onDecrement: _decrement,
+          onIncrement: _increment,
+          onDismissed: _delete,
+        );
+      },
     );
   }
 }
