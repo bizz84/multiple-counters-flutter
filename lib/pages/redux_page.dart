@@ -47,9 +47,7 @@ class CountersMiddleWare extends MiddlewareClass<ReduxModel> {
 
   void call(Store<ReduxModel> store, dynamic action, NextDispatcher next) {
     if (action is CreateCounterAction) {
-      int now = DateTime.now().millisecondsSinceEpoch;
-      Counter counter = Counter(key: '$now', value: 0);
-      database.setCounter(counter);
+      database.createCounter();
     }
     if (action is IncrementCounterAction) {
       Counter counter =

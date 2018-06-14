@@ -36,9 +36,7 @@ class SetStatePageState extends State<SetStatePage> {
   }
 
   void _createCounter() async {
-    int now = DateTime.now().millisecondsSinceEpoch;
-    Counter counter = Counter(key: '$now', value: 0);
-    await widget.database.setCounter(counter);
+    await widget.database.createCounter();
   }
 
   void _increment(Counter counter) async {

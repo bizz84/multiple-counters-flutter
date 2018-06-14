@@ -19,9 +19,7 @@ class CountersModel extends Model {
   List<Counter> counters;
 
   void createCounter() async {
-    int now = DateTime.now().millisecondsSinceEpoch;
-    Counter counter = Counter(key: '$now', value: 0);
-    await database.setCounter(counter);
+    await database.createCounter();
   }
 
   void increment(Counter counter) async {

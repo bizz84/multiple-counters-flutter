@@ -8,13 +8,19 @@ class Counter {
 }
 
 abstract class Database {
-  // sets the value for the counter or creates a new one if it doesn't exist
+  Future<void> createCounter();
   Future<void> setCounter(Counter counter);
   Future<void> deleteCounter(Counter counter);
 }
 
 class AppDatabase implements Database {
   static final String rootPath = 'counters';
+
+  Future<void> createCounter() async {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    Counter counter = Counter(key: '$now', value: 0);
+    await setCounter(counter);
+  }
 
   Future<void> setCounter(Counter counter) async {
     DatabaseReference databaseReference = _databaseReference(counter);

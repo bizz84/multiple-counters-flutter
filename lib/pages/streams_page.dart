@@ -11,9 +11,7 @@ class StreamsPage extends StatelessWidget {
   final Stream<List<Counter>> stream;
 
   void _createCounter() async {
-    int now = DateTime.now().millisecondsSinceEpoch;
-    Counter counter = Counter(key: '$now', value: 0);
-    await database.setCounter(counter);
+    await database.createCounter();
   }
 
   void _increment(Counter counter) async {
