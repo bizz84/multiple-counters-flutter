@@ -10,8 +10,8 @@ import 'package:multiple_counters_flutter/pages/streams_page.dart';
 
 enum TabItem {
   setState,
-  scoped,
   streams,
+  scoped,
   redux,
 }
 
@@ -19,10 +19,10 @@ String tabItemName(TabItem tabItem) {
   switch (tabItem) {
     case TabItem.setState:
       return "setState";
-    case TabItem.scoped:
-      return "scoped";
     case TabItem.streams:
       return "streams";
+    case TabItem.scoped:
+      return "scoped";
     case TabItem.redux:
       return "redux";
   }
@@ -43,10 +43,10 @@ class BottomNavigationState extends State<BottomNavigation> {
         _updateCurrentItem(TabItem.setState);
         break;
       case 1:
-        _updateCurrentItem(TabItem.scoped);
+        _updateCurrentItem(TabItem.streams);
         break;
       case 2:
-        _updateCurrentItem(TabItem.streams);
+        _updateCurrentItem(TabItem.scoped);
         break;
       case 3:
         _updateCurrentItem(TabItem.redux);
@@ -102,8 +102,8 @@ class BottomNavigationState extends State<BottomNavigation> {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(icon: Icons.adjust, tabItem: TabItem.setState),
-        _buildItem(icon: Icons.arrow_downward, tabItem: TabItem.scoped),
         _buildItem(icon: Icons.clear_all, tabItem: TabItem.streams),
+        _buildItem(icon: Icons.arrow_downward, tabItem: TabItem.scoped),
         _buildItem(icon: Icons.settings_input_component, tabItem: TabItem.redux),
       ],
       onTap: _onSelectTab,
