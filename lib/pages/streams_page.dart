@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
 import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
 import 'package:multiple_counters_flutter/database.dart';
 
 class StreamsPage extends StatelessWidget {
-  StreamsPage({this.database, this.subscription});
+  StreamsPage({this.database, this.stream});
   final Database database;
-  final NodeSubscription<List<Counter>> subscription;
+  final Stream<List<Counter>> stream;
 
   void _createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
@@ -47,7 +49,7 @@ class StreamsPage extends StatelessWidget {
 
   Widget _buildContent() {
     return StreamBuilder<List<Counter>>(
-      stream: subscription.stream,
+      stream: stream,
       builder: (context, snapshot) {
         return ListItemsBuilder<Counter>(
           items: snapshot.hasData ? snapshot.data : null,

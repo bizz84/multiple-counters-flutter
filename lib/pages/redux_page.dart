@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -39,9 +41,9 @@ class UpdateCountersAction {
 
 // Middleware
 class CountersMiddleWare extends MiddlewareClass<ReduxModel> {
-  CountersMiddleWare({this.database, this.subscription});
+  CountersMiddleWare({this.database, this.stream});
   final Database database;
-  final NodeSubscription<List<Counter>> subscription;
+  final Stream<List<Counter>> stream;
 
   void call(Store<ReduxModel> store, dynamic action, NextDispatcher next) {
     if (action is CreateCounterAction) {
@@ -66,7 +68,7 @@ class CountersMiddleWare extends MiddlewareClass<ReduxModel> {
   }
 
   void listen(Store<ReduxModel> store) {
-    subscription.stream.listen((counters) {
+    stream.listen((counters) {
       store.dispatch(UpdateCountersAction(counters: counters));
     });
   }

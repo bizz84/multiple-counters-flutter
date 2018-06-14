@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:multiple_counters_flutter/common_widgets/counter_list_tile.dart';
 import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart';
@@ -5,14 +7,14 @@ import 'package:multiple_counters_flutter/database.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CountersModel extends Model {
-  CountersModel({this.database, this.subscription}) {
-    subscription.stream.listen((counters) {
+  CountersModel({this.database, this.stream}) {
+    stream.listen((counters) {
       this.counters = counters;
       notifyListeners();
     });
   }
   final Database database;
-  final NodeSubscription<List<Counter>> subscription;
+  final Stream<List<Counter>> stream;
 
   List<Counter> counters;
 

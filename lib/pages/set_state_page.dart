@@ -6,9 +6,9 @@ import 'package:multiple_counters_flutter/common_widgets/list_items_builder.dart
 import 'package:multiple_counters_flutter/database.dart';
 
 class SetStatePage extends StatefulWidget {
-  SetStatePage({this.database, this.subscription});
+  SetStatePage({this.database, this.stream});
   final Database database;
-  final NodeSubscription<List<Counter>> subscription;
+  final Stream<List<Counter>> stream;
 
   @override
   State<StatefulWidget> createState() => SetStatePageState();
@@ -22,7 +22,7 @@ class SetStatePageState extends State<SetStatePage> {
   @override
   void initState() {
     super.initState();
-    _subscription = widget.subscription.stream.listen((counters) {
+    _subscription = widget.stream.listen((counters) {
       setState(() {
         _counters = counters;
       });

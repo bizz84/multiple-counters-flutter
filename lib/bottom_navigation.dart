@@ -69,31 +69,21 @@ class BottomNavigationState extends State<BottomNavigation> {
   }
 
   Widget _buildBody() {
+    var database = AppDatabase();
+    var stream = AppDatabase.countersStream();
     switch (currentItem) {
       case TabItem.setState:
-        return SetStatePage(
-          database: AppDatabase(),
-          subscription: AppDatabase.countersStream(),
-        );
+        return SetStatePage(database: database, stream: stream);
       case TabItem.scoped:
         return ScopedModel<CountersModel>(
-          model: CountersModel(
-            database: AppDatabase(),
-            subscription: AppDatabase.countersStream(),
-          ),
+          model: CountersModel(database: database, stream: stream),
           child: ScopedModelPage(),
         );
       case TabItem.streams:
-        return StreamsPage(
-          database: AppDatabase(),
-          subscription: AppDatabase.countersStream(),
-        );
+        return StreamsPage(database: database, stream: stream);
       case TabItem.redux:
-        final middleware = CountersMiddleWare(
-          database: AppDatabase(),
-          subscription: AppDatabase.countersStream(),
-        );
-        final store = Store<ReduxModel>(
+        var middleware = CountersMiddleWare(database: database, stream: stream);
+        var store = Store<ReduxModel>(
           reducer,
           initialState: ReduxModel(counters: null),
           middleware: [ middleware ],
