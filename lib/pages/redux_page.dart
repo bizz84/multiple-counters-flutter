@@ -40,8 +40,8 @@ class UpdateCountersAction {
 }
 
 // Middleware
-class CountersMiddleWare extends MiddlewareClass<ReduxModel> {
-  CountersMiddleWare({this.database, this.stream});
+class CountersMiddleware extends MiddlewareClass<ReduxModel> {
+  CountersMiddleware({this.database, this.stream});
   final Database database;
   final Stream<List<Counter>> stream;
 

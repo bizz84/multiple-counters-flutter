@@ -7,68 +7,67 @@ import 'package:multiple_counters_flutter/database.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CountersModel extends Model {
-  CountersModel({this.database, this.stream}) {
+  CountersModel({Stream<List<Counter>> stream}) {
     stream.listen((counters) {
       this.counters = counters;
       notifyListeners();
     });
   }
-  final Database database;
-  final Stream<List<Counter>> stream;
 
   List<Counter> counters;
+}
 
-  void createCounter() async {
+class ScopedModelPage extends StatelessWidget {
+  ScopedModelPage({this.database});
+  final Database database;
+
+  void _createCounter() async {
     await database.createCounter();
   }
 
-  void increment(Counter counter) async {
+  void _increment(Counter counter) async {
     counter.value++;
     await database.setCounter(counter);
   }
 
-  void decrement(Counter counter) async {
+  void _decrement(Counter counter) async {
     counter.value--;
     await database.setCounter(counter);
   }
 
-  void delete(Counter counter) async {
+  void _delete(Counter counter) async {
     await database.deleteCounter(counter);
   }
-}
-
-class ScopedModelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<CountersModel>(
-        builder: (context, child, model) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Scoped model'),
-          elevation: 1.0,
-        ),
-        body: _buildContent(model),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: model.createCounter,
-        ),
-      );
-    });
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Scoped model'),
+        elevation: 1.0,
+      ),
+      body: _buildContent(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _createCounter,
+      ),
+    );
   }
 
-  Widget _buildContent(CountersModel model) {
-    return ListItemsBuilder<Counter>(
-      items: model.counters,
-      itemBuilder: (context, counter) {
-        return CounterListTile(
-          key: Key('counter-${counter.key}'),
-          counter: counter,
-          onDecrement: model.decrement,
-          onIncrement: model.increment,
-          onDismissed: model.delete,
-        );
-      },
-    );
+  Widget _buildContent() {
+    return ScopedModelDescendant<CountersModel>(
+        builder: (context, child, model) {
+      return ListItemsBuilder<Counter>(
+          items: model.counters,
+          itemBuilder: (context, counter) {
+            return CounterListTile(
+              key: Key('counter-${counter.key}'),
+              counter: counter,
+              onDecrement: _decrement,
+              onIncrement: _increment,
+              onDismissed: _delete,
+            );
+          });
+    });
   }
 }
