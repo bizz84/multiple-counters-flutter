@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.musevisions.multiplecountersflutter"
+        applicationId "com.musevisions.multipleCountersFlutter"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -55,3 +55,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

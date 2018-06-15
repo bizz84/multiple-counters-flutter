@@ -32,6 +32,14 @@ The same functionality is replicated in four different pages accessible via the 
 * [`scoped_model`](https://pub.dartlang.org/packages/scoped_model)
 * [`redux`](https://pub.dartlang.org/packages/redux)
 
+## Running the project
+
+You need to register the project with your own Firebase account.
+
+- Use `com.musevisions.multipleCountersFlutter` as your bundle / application ID when generating the Firebase project.
+
+- Download the `ios/Runner/GoogleService-Info.plist` and `android/app/google-services.json` files as needed.
+
 ### For more articles and video tutorials, check out [Coding With Flutter](https://codingwithflutter.com/).
 
 ### [License: MIT](LICENSE.md)
