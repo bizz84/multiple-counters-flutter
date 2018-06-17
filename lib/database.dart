@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 
 class Counter {
-  Counter({this.key, this.value});
-  String key;
+  Counter({this.id, this.value});
+  int id;
   int value;
 }
 
@@ -18,7 +18,7 @@ class AppDatabase implements Database {
 
   Future<void> createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
-    Counter counter = Counter(key: '$now', value: 0);
+    Counter counter = Counter(id: now, value: 0);
     await setCounter(counter);
   }
 
@@ -33,7 +33,7 @@ class AppDatabase implements Database {
   }
 
   DatabaseReference _databaseReference(Counter counter) {
-    var path = '$rootPath/${counter.key}';
+    var path = '$rootPath/${counter.id}';
     return FirebaseDatabase.instance.reference().child(path);
   }
 
@@ -66,9 +66,11 @@ class _CountersParser implements NodeParser<List<Counter>> {
     Map<dynamic, dynamic> values = event.snapshot.value;
     if (values != null) {
       Iterable<String> keys = values.keys.cast<String>();
-      var counters =
-          keys.map((key) => Counter(key: key, value: values[key])).toList();
-      counters.sort((lhs, rhs) => rhs.key.compareTo(lhs.key));
+
+      var counters = keys
+          .map((key) => Counter(id: int.parse(key), value: values[key]))
+          .toList();
+      counters.sort((lhs, rhs) => rhs.id.compareTo(lhs.id));
       return counters;
     } else {
       return [];

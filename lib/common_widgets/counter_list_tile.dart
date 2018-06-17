@@ -22,7 +22,7 @@ class CounterListTile extends StatelessWidget {
           style: TextStyle(fontSize: 48.0),
         ),
         subtitle: Text(
-          '${counter.key}',
+          '${counter.id}',
           style: TextStyle(fontSize: 16.0),
         ),
         trailing: Row(

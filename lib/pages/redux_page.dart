@@ -51,12 +51,12 @@ class CountersMiddleware extends MiddlewareClass<ReduxModel> {
     }
     if (action is IncrementCounterAction) {
       Counter counter =
-          Counter(key: action.counter.key, value: action.counter.value + 1);
+          Counter(id: action.counter.id, value: action.counter.value + 1);
       database.setCounter(counter);
     }
     if (action is DecrementCounterAction) {
       Counter counter =
-          Counter(key: action.counter.key, value: action.counter.value - 1);
+          Counter(id: action.counter.id, value: action.counter.value - 1);
       database.setCounter(counter);
     }
     if (action is DeleteCounterAction) {
@@ -127,7 +127,7 @@ class ReduxPage extends StatelessWidget {
             items: model.counters,
             itemBuilder: (context, counter) {
               return CounterListTile(
-                key: Key('counter-${counter.key}'),
+                key: Key('counter-${counter.id}'),
                 counter: counter,
                 onDecrement: (counter) => _decrement(store, counter),
                 onIncrement: (counter) => _increment(store, counter),

@@ -53,7 +53,7 @@ class StreamsPage extends StatelessWidget {
           items: snapshot.hasData ? snapshot.data : null,
           itemBuilder: (context, counter) {
             return CounterListTile(
-              key: Key('counter-${counter.key}'),
+              key: Key('counter-${counter.id}'),
               counter: counter,
               onDecrement: _decrement,
               onIncrement: _increment,
