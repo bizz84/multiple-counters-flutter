@@ -8,7 +8,7 @@ This is a sample app showing four different approaches to managing state in Flut
 
 Watch my video for a full overview of the differences and tradeoffs between these techniques:
 
-[![](screenshots/poster-state-management.png)]()
+[![](screenshots/poster-state-management.png)](https://youtu.be/HLop7s2sJ7Q)
 
 Supported tasks:
 
