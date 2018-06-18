@@ -14,8 +14,6 @@ abstract class Database {
 }
 
 class AppDatabase implements Database {
-  static final String rootPath = 'counters';
-
   Future<void> createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
     Counter counter = Counter(id: now, value: 0);
@@ -43,6 +41,8 @@ class AppDatabase implements Database {
       parser: _CountersParser(),
     ).stream;
   }
+
+  static final String rootPath = 'counters';
 }
 
 class _NodeStream<T> {
