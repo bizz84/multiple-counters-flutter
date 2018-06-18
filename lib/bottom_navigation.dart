@@ -74,13 +74,13 @@ class BottomNavigationState extends State<BottomNavigation> {
     switch (currentItem) {
       case TabItem.setState:
         return SetStatePage(database: database, stream: stream);
+      case TabItem.streams:
+        return StreamsPage(database: database, stream: stream);
       case TabItem.scoped:
         return ScopedModel<CountersModel>(
           model: CountersModel(stream: stream),
           child: ScopedModelPage(database: database),
         );
-      case TabItem.streams:
-        return StreamsPage(database: database, stream: stream);
       case TabItem.redux:
         var middleware = CountersMiddleware(database: database, stream: stream);
         var store = Store<ReduxModel>(
