@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Counter {
   Counter({this.id, this.value});
@@ -11,8 +12,10 @@ abstract class Database {
   Future<void> createCounter();
   Future<void> setCounter(Counter counter);
   Future<void> deleteCounter(Counter counter);
+  Stream<List<Counter>> countersStream();
 }
 
+// Realtime Database
 class AppDatabase implements Database {
   Future<void> createCounter() async {
     int now = DateTime.now().millisecondsSinceEpoch;
@@ -35,18 +38,18 @@ class AppDatabase implements Database {
     return FirebaseDatabase.instance.reference().child(path);
   }
 
-  static Stream<List<Counter>> countersStream() {
-    return _NodeStream<List<Counter>>(
+  Stream<List<Counter>> countersStream() {
+    return _DatabaseStream<List<Counter>>(
       apiPath: rootPath,
-      parser: _CountersParser(),
+      parser: _DatabaseCountersParser(),
     ).stream;
   }
 
   static final String rootPath = 'counters';
 }
 
-class _NodeStream<T> {
-  _NodeStream({String apiPath, NodeParser<T> parser}) {
+class _DatabaseStream<T> {
+  _DatabaseStream({String apiPath, DatabaseNodeParser<T> parser}) {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
     DatabaseReference databaseReference =
         firebaseDatabase.reference().child(apiPath);
@@ -57,11 +60,11 @@ class _NodeStream<T> {
   Stream<T> stream;
 }
 
-abstract class NodeParser<T> {
+abstract class DatabaseNodeParser<T> {
   T parse(Event event);
 }
 
-class _CountersParser implements NodeParser<List<Counter>> {
+class _DatabaseCountersParser implements DatabaseNodeParser<List<Counter>> {
   List<Counter> parse(Event event) {
     Map<dynamic, dynamic> values = event.snapshot.value;
     if (values != null) {
@@ -76,4 +79,65 @@ class _CountersParser implements NodeParser<List<Counter>> {
       return [];
     }
   }
+}
+
+// Cloud Firestore
+class AppFirestore implements Database {
+
+  Future<void> createCounter() async {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    Counter counter = Counter(id: now, value: 0);
+    await setCounter(counter);
+  }
+  Future<void> setCounter(Counter counter) async {
+
+    _documentReference(counter).setData({
+      'value' : counter.value,
+    });
+  }
+
+  Future<void> deleteCounter(Counter counter) async {
+    _documentReference(counter).delete();
+  }
+
+  Stream<List<Counter>> countersStream() {
+    return _FirestoreStream<List<Counter>>(
+      apiPath: rootPath,
+      parser: FirestoreCountersParser(),
+    ).stream;
+  }
+
+  DocumentReference _documentReference(Counter counter) {
+    return Firestore.instance.collection(rootPath).document('${counter.id}');
+  }
+
+  static final String rootPath = 'counters';
+}
+
+abstract class FirestoreNodeParser<T> {
+
+  T parse(QuerySnapshot querySnapshot);
+}
+
+class FirestoreCountersParser extends FirestoreNodeParser<List<Counter>> {
+  List<Counter> parse(QuerySnapshot querySnapshot) {
+    var counters = querySnapshot.documents.map((documentSnapshot) {
+      return Counter(
+        id: int.parse(documentSnapshot.documentID),
+        value: documentSnapshot['value'],
+      );
+    }).toList();
+    counters.sort((lhs, rhs) => rhs.id.compareTo(lhs.id));
+    return counters;
+  }
+}
+
+class _FirestoreStream<T> {
+  _FirestoreStream({String apiPath, FirestoreNodeParser<T> parser}) {
+    CollectionReference collectionReference = Firestore.instance.collection(apiPath);
+    Stream<QuerySnapshot> snapshots = collectionReference.snapshots();
+    stream = snapshots.map((snapshot) => parser.parse(snapshot));
+  }
+
+  Stream<T> stream;
 }

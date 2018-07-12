@@ -69,8 +69,8 @@ class BottomNavigationState extends State<BottomNavigation> {
   }
 
   Widget _buildBody() {
-    var database = AppDatabase();
-    var stream = AppDatabase.countersStream();
+    var database = AppFirestore();
+    var stream = database.countersStream();
     switch (currentItem) {
       case TabItem.setState:
         return SetStatePage(database: database, stream: stream);

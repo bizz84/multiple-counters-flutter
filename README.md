@@ -17,9 +17,9 @@ Supported tasks:
 - Increment or decrement existing counters
 - Remove counters (swipe left to dismiss)
 
-## Firebase Database
+## Database
 
-The app uses Firebase Realtime Database as a source of truth for the state of the counters. This allows the data to be **easily synced** across multiple clients.
+The app uses Firebase as a source of truth for the state of the counters. This allows the data to be **easily synced** across multiple clients. Realtime Database and Cloud Firestore are both supported (see `database.dart` class).
 
 **NOTE**: For simplicity, the whole database has public read/write access, and counters can't be set per-user. For a production app it would be more appropriate to set user access rules.
 
