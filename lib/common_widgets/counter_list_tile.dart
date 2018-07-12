@@ -26,6 +26,7 @@ class CounterListTile extends StatelessWidget {
           style: TextStyle(fontSize: 16.0),
         ),
         trailing: Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CounterActionButton(
               iconData: Icons.remove,
